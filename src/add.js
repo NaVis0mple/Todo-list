@@ -1,22 +1,20 @@
-import { form,submitbutton,titleInput,dateInput,descriptionInput,priorityInput} from "./formEnter"
+import { form,submitbutton,titleInput,dateInput,descriptionInput,priorityBackgroundInput,priorityTextInput} from "./formEnter"
 
 
 const itemList = []
-function additem (t,d,da,p) {
+function additem (t,d,da,pt,pb) {
     const title = {title:t}
     const description = {description:d}
     const date ={date:da}
-    const priority ={priority:p}
+    const priorityT ={priorityT:pt}
+    const priorityB ={priorityB:pb}
 
-
-    return Object.assign({},title,description,date,priority)
+    return Object.assign({},title,description,date,priorityT,priorityB)
 }
 submitbutton.addEventListener('click',()=>{
-    const x = additem(titleInput.value,descriptionInput.value,dateInput.value,priorityInput.value)
-    
+    //form validate
+    const x = additem(titleInput.value,descriptionInput.value,dateInput.value,priorityTextInput.value,priorityBackgroundInput.value)
     itemList.push(x)
-    console.log(x)
-    console.log(itemList)
 })
 
 

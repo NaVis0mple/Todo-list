@@ -34,14 +34,35 @@ dateLabel.htmlFor = 'date'
 form.appendChild(dateLabel)
 form.appendChild(dateInput)
 
-const priorityInput = document.createElement('input')
-priorityInput.id = 'priority'
-priorityInput.type = 'color'
-const priorityLabel = document.createElement('label')
-priorityLabel.textContent = 'priority'
-priorityLabel.htmlFor = 'priority'
-form.appendChild(priorityLabel)
-form.appendChild(priorityInput)
+const priorityTextInput = document.createElement('input')
+priorityTextInput.id = 'priorityText'
+priorityTextInput.type = 'color'
+const priorityTextLabel = document.createElement('label')
+priorityTextLabel.textContent = 'textColor'
+priorityTextLabel.htmlFor = 'priorityText'
+form.appendChild(priorityTextLabel)
+form.appendChild(priorityTextInput)
+
+const priorityBackgroundInput = document.createElement('input')
+priorityBackgroundInput.id = 'priorityBackground'
+priorityBackgroundInput.type = 'color'
+const priorityBackgroundLabel = document.createElement('label')
+priorityBackgroundLabel.textContent = 'backgroundColor'
+priorityBackgroundLabel.htmlFor = 'priorityBackground'
+form.appendChild(priorityBackgroundLabel)
+form.appendChild(priorityBackgroundInput)
+
+const styleshowcase = document.createElement('div')
+styleshowcase.textContent = 'go to school and run run run'
+form.appendChild(styleshowcase)
+
+const showcasecolor = ()=> {
+    styleshowcase.style.color = `${priorityTextInput.value}`
+    styleshowcase.style.backgroundColor = `${priorityBackgroundInput.value}`
+}
+priorityBackgroundInput.addEventListener('change',()=>showcasecolor())
+priorityTextInput.addEventListener('change',()=>showcasecolor())
+
 
 //button
 const submitbutton = document.createElement('button')
@@ -58,7 +79,7 @@ addlistbutton.addEventListener('click',()=>{
 
 
 
-export {form ,submitbutton,titleInput,descriptionInput,dateInput,priorityInput}
+export {form ,submitbutton,titleInput,descriptionInput,dateInput,priorityTextInput,priorityBackgroundInput}
 
 
 
