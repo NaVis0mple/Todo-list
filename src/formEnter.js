@@ -48,6 +48,16 @@ const submitbutton = document.createElement('button')
 submitbutton.textContent = 'done'
 form.appendChild(submitbutton)
 
+//form hide toggle
+const addlistbutton = document.querySelector('.addlist')
+addlistbutton.addEventListener('click',()=>{
+    form.classList.toggle('hideform')
+    document.body.appendChild(form)
+})
+
+
+
+
 export {form ,submitbutton,titleInput,descriptionInput,dateInput,priorityInput}
 
 
