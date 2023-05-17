@@ -12,7 +12,6 @@ function createDeleteButton (index) {
     const button = document.createElement('button')
     content.appendChild(button)
     button.classList.add(`no.${index}`)
-    button.innerHTML='deleted'
     button.addEventListener('click', () => {
       itemList.splice(index,1)
       createContent ()  
@@ -28,7 +27,7 @@ function createContent () {
     div1.style.color = `${item.priorityT}`
     div1.style.border = `solid 1px ${item.priorityB}`
     div1.style.backgroundColor = `${item.priorityB}`
-    createDeleteButton(index)
     content.appendChild(div1)
+    createDeleteButton(index)
 })
 }

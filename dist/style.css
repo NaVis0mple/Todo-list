@@ -19,9 +19,29 @@ body {
 
 #content {
     grid-area: 2/2/3/3;
+    display: grid;
+    grid-template-columns: 1fr 25px;
+    grid-template-rows: repeat(auto-fill, 20px);
 }
 
+#content button {
+    background-color: white;
+    border: none;
+    background-image: url(trash-2.svg);
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position: center;
+    padding: 10px;
+    border-radius: 8px;
 
+}
+
+#content button:hover {
+    background-color: rgb(195, 195, 195);
+
+}
+
+#content button:hover::after {}
 
 
 
