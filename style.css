@@ -20,8 +20,8 @@ body {
 #content {
     grid-area: 2/2/3/3;
     display: grid;
-    grid-template-columns: 1fr 25px;
-    grid-template-rows: repeat(auto-fill, 20px);
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fill, 25px);
 }
 
 #content button {
@@ -41,10 +41,17 @@ body {
 
 }
 
-#content button:hover::after {}
+#content div:hover {
+    border: solid;
+    border-color: lavender;
+    border-width: 1px;
+    border-radius: 5px;
+}
 
-
-
+#content div {
+    display: flex;
+    padding: 5px 3px 5px 10px;
+}
 
 .form {
     display: none;
