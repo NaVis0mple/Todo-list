@@ -1,12 +1,11 @@
-import {  format, parseISO } from "date-fns"
-import flatpickr from "flatpickr"
+import { format, parseISO } from 'date-fns'
+import flatpickr from 'flatpickr'
 
-//create a form to user input
+// create a form to user input
 const form = document.createElement('div')
 form.classList.add('form')
 
-
-//Input and Label
+// Input and Label
 const titleInput = document.createElement('input')
 titleInput.id = 'title'
 titleInput.type = 'text'
@@ -27,7 +26,7 @@ form.appendChild(descriptionInput)
 
 const dateInput = document.createElement('input')
 dateInput.id = 'date'
-const fp = flatpickr(dateInput,{})
+const fp = flatpickr(dateInput, {})
 const dateLabel = document.createElement('label')
 dateLabel.textContent = 'DueDate'
 dateLabel.htmlFor = 'date'
@@ -56,31 +55,25 @@ const styleshowcase = document.createElement('div')
 styleshowcase.textContent = 'go to school and run run run'
 form.appendChild(styleshowcase)
 
-const showcasecolor = ()=> {
-    styleshowcase.style.color = `${priorityTextInput.value}`
-    styleshowcase.style.backgroundColor = `${priorityBackgroundInput.value}`
+const showcasecolor = () => {
+  styleshowcase.style.color = `${priorityTextInput.value}`
+  styleshowcase.style.backgroundColor = `${priorityBackgroundInput.value}`
 }
-priorityBackgroundInput.addEventListener('change',()=>showcasecolor())
-priorityTextInput.addEventListener('change',()=>showcasecolor())
+priorityBackgroundInput.addEventListener('change', () => showcasecolor())
+priorityTextInput.addEventListener('change', () => showcasecolor())
 
-
-//button
+// submitbutton
 const submitbutton = document.createElement('button')
 submitbutton.textContent = 'done'
 form.appendChild(submitbutton)
 
-//form hide toggle
+// form hide toggle
 const addlistbutton = document.querySelector('.addlist')
-addlistbutton.addEventListener('click',()=>{
-    form.classList.toggle('hideform')
-    document.body.appendChild(form)
+addlistbutton.addEventListener('click', () => {
+  form.classList.toggle('hideform')
+  document.body.appendChild(form)
 })
 
+export { form, submitbutton, titleInput, descriptionInput, dateInput, priorityTextInput, priorityBackgroundInput }
 
-
-
-export {form ,submitbutton,titleInput,descriptionInput,dateInput,priorityTextInput,priorityBackgroundInput}
-
-
-
-//maybe add function to add input?
+// maybe add function to add input?
