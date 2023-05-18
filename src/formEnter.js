@@ -52,15 +52,18 @@ form.appendChild(priorityBackgroundLabel)
 form.appendChild(priorityBackgroundInput)
 
 const styleshowcase = document.createElement('div')
-styleshowcase.textContent = 'go to school and run run run'
+titleInput.addEventListener('input',(e)=>{
+  styleshowcase.textContent = e.target.value
+  showcasecolor()
+})
 form.appendChild(styleshowcase)
 
 const showcasecolor = () => {
   styleshowcase.style.color = `${priorityTextInput.value}`
   styleshowcase.style.backgroundColor = `${priorityBackgroundInput.value}`
 }
-priorityBackgroundInput.addEventListener('change', () => showcasecolor())
-priorityTextInput.addEventListener('change', () => showcasecolor())
+priorityBackgroundInput.addEventListener('input', () => showcasecolor())
+priorityTextInput.addEventListener('input', () => showcasecolor())
 
 // submitbutton
 const submitbutton = document.createElement('button')

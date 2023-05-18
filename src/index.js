@@ -1,5 +1,5 @@
 import { form } from './formEnter'
-import { submitbutton, itemList } from './add'
+import { submitbutton, itemList,pushInList} from './add'
 
 
 const content = document.getElementById('content')
@@ -35,37 +35,39 @@ function createFinishedButton (index)  {
 
 
 //render new content about itemList 
+function createDiv (item,index) {
+  const div = document.createElement('div')
+  div.classList.add(`no${index}`)
+  div.innerHTML = `${item.title}  ${item.description} ${item.date}`
+  div.style.color = `${item.priorityT}`
+  div.style.backgroundColor = `${item.priorityB}`
+  return div
+} 
+
 function generateContent () {
     content.innerHTML = ''
   itemList.forEach((item,index) => {
-    const div1 = document.createElement('div')
-    div1.classList.add(`no${index}`)
-    div1.innerHTML = `${item.title}  ${item.description} ${item.date}`
-    div1.style.color = `${item.priorityT}`
-    div1.style.backgroundColor = `${item.priorityB}`
+    const div = createDiv(item,index)
     const deleteButton = createDeleteButton(index)
     const finishedButton = createFinishedButton(index)
-    div1.appendChild(finishedButton)
-    div1.appendChild(deleteButton)
-    content.appendChild(div1)  
+    div.appendChild(finishedButton)
+    div.appendChild(deleteButton)
+    content.appendChild(div)  
 })
 }
 //render finished list
 function generateFinishedContent () {
   content.innerHTML = ''
   finishedList.forEach((item,index) => {
-  const div1 = document.createElement('div')
-  div1.classList.add(`no${index}`)
-  div1.innerHTML = `${item.title}  ${item.description} ${item.date}`
-  div1.style.color = `${item.priorityT}`
-  div1.style.backgroundColor = `${item.priorityB}`
-  content.appendChild(div1)  
+  const div = createDiv(item,index)
+  content.appendChild(div)  
 })
 }
 
 
 // main  home show todolist
 submitbutton.addEventListener('click', () => {
+  pushInList()
   generateContent ()
 })
 
