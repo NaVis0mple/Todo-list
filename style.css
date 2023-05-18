@@ -66,6 +66,18 @@ body {
     display: none;
 }
 
+input {
+    outline: none;
+    border-radius: 5px;
+    border-style: solid;
+}
+
 .form.hideform {
     display: block;
 }
+
+.form input.invalid {
+    border-color: red;
+}
+
+.form input.invalid:focus {}
