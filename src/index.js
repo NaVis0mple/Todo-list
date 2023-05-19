@@ -1,8 +1,13 @@
 import { form } from './formEnter'
 import { submitbutton, itemList,pushInList} from './add'
+import { format, parseISO } from 'date-fns'
 
 
 const content = document.getElementById('content')
+let sortByDateAsc = false
+let sortBytitleAsc = false
+let pageStatusTodo = true
+let pageStatusDone = false
 
 
 // create a button to delete the list piece
@@ -12,7 +17,7 @@ function createDeleteButton (index) {
     button.classList.add('delete')
     button.addEventListener('click', () => {
       itemList.splice(index,1)
-      generateContent ()  
+      generateContent (itemList)  
     })
     return button
   }
@@ -24,17 +29,15 @@ function createFinishedButton (index)  {
   button.classList.add('finished')
   button.addEventListener('click',()=>{
     const x = itemList.splice(index,1)[0] || {}
-    generateContent()
     finishedList.push(x)
-    console.log(finishedList)
-    console.log(x)
+    generateContent(itemList)
   })
   return button
 }
 
 
 
-//render new content about itemList 
+//create a div to print value 
 function createDiv (item,index) {
   const div = document.createElement('div')
   div.classList.add(`no${index}`)
@@ -44,9 +47,10 @@ function createDiv (item,index) {
   return div
 } 
 
-function generateContent () {
+//generate with deleted and finished button
+function generateContent (list) {
     content.innerHTML = ''
-  itemList.forEach((item,index) => {
+    list.forEach((item,index) => {
     const div = createDiv(item,index)
     const deleteButton = createDeleteButton(index)
     const finishedButton = createFinishedButton(index)
@@ -55,38 +59,71 @@ function generateContent () {
     content.appendChild(div)  
 })
 }
-//render finished list
-function generateFinishedContent () {
+//generate finished list (without button)
+function generateFinishedContent (list) {
   content.innerHTML = ''
-  finishedList.forEach((item,index) => {
+  list.forEach((item,index) => {
   const div = createDiv(item,index)
   content.appendChild(div)  
 })
 }
 
+//generate  -sortbydate
+function generateContentSortByDate (list) {
+  const shallowcopy = [...list].sort((a,b)=>{
+    const dateA = new Date(a.date)
+    const dateB = new Date (b.date)
+    return sortByDateAsc ? dateB-dateA : dateA-dateB
+  })
+  return shallowcopy
+}
+//generate -sortbytitle 
+function generateContentSortByTitle (list) {
+  content.innerHTML = ''
+  const shallowcopy = [...list].sort((a,b)=>{
+    const titleA = a.title
+    const titleB = b.title
+    return sortBytitleAsc ? titleB-titleA : titleA-titleB
+  })
+  generateContent(shallowcopy)
+}
+
+
 
 // main  home show todolist
 submitbutton.addEventListener('click', () => {
   pushInList()
-  generateContent ()
+  generateContent (itemList)
 })
 
 //render sidebar todo page
 const sidebarTodoPage = document.querySelector('.todolist')
 sidebarTodoPage.addEventListener('click',()=>{
-  generateContent ()
+  pageStatusTodo = true
+  sortByDateAsc = true
+  generateContent (itemList)
 })
 
 //render sidebar done page
 const sidebarDonePage = document.querySelector('.done')
 sidebarDonePage.addEventListener('click',()=>{
-  generateFinishedContent ()
+  pageStatusTodo = false
+  sortByDateAsc = true
+  generateFinishedContent (finishedList)
 })
 
-
-
-
-
+//render todolist -sortbydate 
+const sortByDateButton = document.querySelector('.sortByDate')
+sortByDateButton.addEventListener('click',()=>{
+  const sortByTodo = generateContentSortByDate(itemList)
+  const sortByDone = generateContentSortByDate(finishedList)
+  if (pageStatusTodo) {
+    generateContent(sortByTodo)
+  }else {
+    generateFinishedContent(sortByDone)
+  }
+  sortByDateAsc =!sortByDateAsc
+})
 
 const sidebarHistorypage = document.querySelector('.history')
 
