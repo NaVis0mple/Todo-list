@@ -19,7 +19,7 @@ body {
     grid-template-rows: repeat(3, min-content);
 }
 
-#sidebar button {}
+
 
 
 #footer {
@@ -117,7 +117,6 @@ input {
     border-color: red;
 }
 
-.form input.invalid:focus {}
 
 
 label[for='title'] {
