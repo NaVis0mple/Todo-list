@@ -5,58 +5,64 @@ import flatpickr from 'flatpickr'
 const form = document.createElement('div')
 form.classList.add('form')
 
-// Input and Label
-const titleInput = document.createElement('input')
-titleInput.id = 'title'
-titleInput.type = 'text'
-const titleLabel = document.createElement('label')
-titleLabel.textContent = 'title'
-titleLabel.htmlFor = 'title'
+// create Input and Label function
+const createInput = (id,type)=> {
+  const input = document.createElement('input')
+  input.id = id
+  input.type = type
+  return input
+}
+const createLabel = (htmlFor)=> {
+  const label = document.createElement('label')
+  label.htmlFor = htmlFor
+  return label
+}
+
+
+
+const titleInput = createInput('title','text')
+const titleLabel = createLabel('title')
 form.appendChild(titleLabel)
 form.appendChild(titleInput)
 
-const descriptionInput = document.createElement('input')
-descriptionInput.id = 'description'
-descriptionInput.type = 'text'
-const descriptionLabel = document.createElement('label')
-descriptionLabel.textContent = 'description'
-descriptionLabel.htmlFor = 'description'
+const descriptionInput = createInput('description','text')
+const descriptionLabel = createLabel('description')
 form.appendChild(descriptionLabel)
 form.appendChild(descriptionInput)
 
-const dateInput = document.createElement('input')
-dateInput.id = 'date'
+const dateInput = createInput('date','text')
 const fp = flatpickr(dateInput, {})
-const dateLabel = document.createElement('label')
-dateLabel.textContent = 'DueDate'
-dateLabel.htmlFor = 'date'
+const dateLabel = createLabel('date')
 form.appendChild(dateLabel)
 form.appendChild(dateInput)
 
-const priorityTextInput = document.createElement('input')
-priorityTextInput.id = 'priorityText'
-priorityTextInput.type = 'color'
-const priorityTextLabel = document.createElement('label')
-priorityTextLabel.textContent = 'textColor'
-priorityTextLabel.htmlFor = 'priorityText'
+const priorityTextInput = createInput('priorityText','color')
+
+const priorityTextLabel = createLabel('priorityText')
 form.appendChild(priorityTextLabel)
 form.appendChild(priorityTextInput)
 
-const priorityBackgroundInput = document.createElement('input')
-priorityBackgroundInput.id = 'priorityBackground'
-priorityBackgroundInput.type = 'color'
-const priorityBackgroundLabel = document.createElement('label')
-priorityBackgroundLabel.textContent = 'backgroundColor'
-priorityBackgroundLabel.htmlFor = 'priorityBackground'
+const priorityBackgroundInput = createInput('priorityBackground','color')
+
+const priorityBackgroundLabel = createLabel('priorityBackground')
 form.appendChild(priorityBackgroundLabel)
 form.appendChild(priorityBackgroundInput)
 
-const styleshowcase = document.createElement('div')
+
+//showcase control
+const styleshowcase = document.createElement('span')
+priorityTextInput.value = '#00FF59'
+priorityTextInput.value = '#000000'
+
+styleshowcase.innerHTML = 'preview'
+form.appendChild(styleshowcase)
+
+
 titleInput.addEventListener('input',(e)=>{
   styleshowcase.textContent = e.target.value
   showcasecolor()
 })
-form.appendChild(styleshowcase)
+
 
 const showcasecolor = () => {
   styleshowcase.style.color = `${priorityTextInput.value}`
@@ -65,16 +71,29 @@ const showcasecolor = () => {
 priorityBackgroundInput.addEventListener('input', () => showcasecolor())
 priorityTextInput.addEventListener('input', () => showcasecolor())
 
+
+
+
+
+
+
+
 // submitbutton
 const submitbutton = document.createElement('button')
 submitbutton.textContent = 'done'
 form.appendChild(submitbutton)
 
+
+
+
+
+
+
 // form hide toggle
 const addlistbutton = document.querySelector('.addlist')
 addlistbutton.addEventListener('click', () => {
   form.classList.toggle('hideform')
-  document.body.appendChild(form)
+  document.getElementById('dropdowncontainer').appendChild(form)
 })
 
 export { form, submitbutton, titleInput, descriptionInput, dateInput, priorityTextInput, priorityBackgroundInput }
