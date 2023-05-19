@@ -74,7 +74,7 @@ export function generateContentSortByDate (list) {
   const shallowCopy = [...list].sort((a, b) => {
     const dateA = new Date(a.date)
     const dateB = new Date(b.date)
-    return sortByDateAsc ? dateB - dateA : dateA - dateB
+    return sortByDateAsc ? dateA - dateB : dateB - dateA
   })
   return shallowCopy
 }
