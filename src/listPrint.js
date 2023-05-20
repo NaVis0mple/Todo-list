@@ -1,14 +1,19 @@
 import { itemList } from './add'
 
-
-
-// the toggle status need to use function to export 
+// the toggle status need to use function to export
 export let sortByDateAsc = false
 export let sortByTitleAsc = false
-export function setSortByDateAsc(value) {
-    sortByDateAsc = value;
-  }
+export let sortByDescriptionAsc = false
 
+export function setSortByDateAsc (value) {
+  sortByDateAsc = value
+}
+export function setSortByTitleAsc (value) {
+  sortByTitleAsc = value
+}
+export function setSortByDescriptionAsc (value) {
+  sortByDescriptionAsc = value
+}
 
 // create a button to delete the list piece
 export const content = document.getElementById('content')
@@ -86,6 +91,17 @@ export function generateContentSortByTitle (list) {
     const titleA = a.title
     const titleB = b.title
     return sortByTitleAsc ? titleB.localeCompare(titleA) : titleA.localeCompare(titleB)
+  })
+  return shallowCopy
+}
+
+// generate -sortbyDescription
+export function generateContentSortByDescription (list) {
+  content.innerHTML = ''
+  const shallowCopy = [...list].sort((a, b) => {
+    const descriptionA = a.description
+    const descriptionB = b.description
+    return sortByDescriptionAsc ? descriptionB.localeCompare(descriptionA) : descriptionA.localeCompare(descriptionB)
   })
   return shallowCopy
 }

@@ -1,19 +1,26 @@
 import { form } from './formEnter'
 import { submitbutton, itemList, pushInList } from './add'
 import { format, parseISO } from 'date-fns'
-import { content,
-         finishedList, 
-         createDiv, 
-         createDeleteButton, 
-         createFinishedButton, 
-         generateContent, 
-         generateContentSortByDate, 
-         generateContentSortByTitle, 
-         generateFinishedContent, sortByDateAsc,sortByTitleAsc ,setSortByDateAsc    } from './listPrint'
+import {
+  content,
+  finishedList,
+  createDiv,
+  createDeleteButton,
+  createFinishedButton,
+  generateContent,
+  generateContentSortByDate,
+  generateContentSortByTitle,
+  generateContentSortByDescription,
+  generateFinishedContent,
+  sortByDateAsc,
+  sortByTitleAsc,
+  sortByDescriptionAsc,
+  setSortByDateAsc,
+  setSortByDescriptionAsc,
+  setSortByTitleAsc
+} from './listPrint'
 
-         
 let pageStatusTodo = true
-let pageStatusDone = false
 
 // when add a piece show todolist page
 submitbutton.addEventListener('click', () => {
@@ -50,4 +57,28 @@ sortByDateButton.addEventListener('click', () => {
   setSortByDateAsc(!sortByDateAsc)
 })
 
-const sidebarHistorypage = document.querySelector('.history')
+// render  -sortbyTitle  to 2pages
+const sortByTitleButton = document.querySelector('.sortByTitle')
+sortByTitleButton.addEventListener('click', () => {
+  const sortByTodo = generateContentSortByTitle(itemList)
+  const sortByDone = generateContentSortByTitle(finishedList)
+  if (pageStatusTodo) {
+    generateContent(sortByTodo)
+  } else {
+    generateFinishedContent(sortByDone)
+  }
+  setSortByTitleAsc(!sortByTitleAsc)
+})
+
+// render  -sortbyDescription  to 2pages
+const sortByDescriptionButton = document.querySelector('.sortByDescription')
+sortByDescriptionButton.addEventListener('click', () => {
+  const sortByTodo = generateContentSortByDescription(itemList)
+  const sortByDone = generateContentSortByDescription(finishedList)
+  if (pageStatusTodo) {
+    generateContent(sortByTodo)
+  } else {
+    generateFinishedContent(sortByDone)
+  }
+  setSortByDescriptionAsc(!sortByDescriptionAsc)
+})
