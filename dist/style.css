@@ -1,16 +1,37 @@
 html {
     box-sizing: border-box;
+    --button-color: #d4d4d8;
+    --button-hover-color: #a1a1aa;
 }
 
 body {
     display: grid;
     grid-template-columns: 1fr 5fr;
-    grid-template-rows: 1fr 4fr min-content;
-    height: 95vh;
+    grid-template-rows: 1fr 4fr 1fr;
+    height: 100vh;
+    background-color: #3f3f46;
+    overflow: hidden;
+}
+
+button {
+    background-color: var(--button-color);
+    border: none;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position: center;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+button:hover {
+    background-color: var(--button-hover-color);
 }
 
 #head {
-    grid-area: 1/1/2/2;
+    grid-area: 1/2/2/3;
+    color: var(--button-color);
+    text-align: center;
+    font-size: 80px;
 }
 
 #sidebar {
@@ -19,13 +40,30 @@ body {
     grid-template-rows: repeat(3, min-content);
 }
 
+#sort {
+    position: absolute;
+    top: 300px;
+    display: grid;
+}
+
+#sort button {
+    border-radius: 0px;
+}
+
+#sort::before {
+    content: 'sortby';
+    color: var(--button-color);
+}
+
+
 
 
 
 #footer {
     grid-area: -2/-2/-1/-1;
+    align-self: center;
+    justify-self: center;
 }
-
 
 #content {
     grid-area: 2/2/3/3;
@@ -36,9 +74,8 @@ body {
     overflow-x: hidden;
 }
 
-#content button,
+
 label {
-    background-color: white;
     border: none;
     background-repeat: no-repeat;
     background-size: 15px;
@@ -53,21 +90,17 @@ label {
 }
 
 
-#content button.finished {
+#content button.finished,
+.done {
     background-image: url(check-square.svg);
     border-radius: 0px;
 }
 
 
 
-#content button:hover {
-    background-color: rgb(195, 195, 195);
-
-}
-
 #content .listContainer:hover {
     border: solid;
-    border-color: rgb(195, 195, 195);
+    border-color: var(--button-hover-color);
     border-width: 1px;
     border-radius: 5px;
 }
@@ -75,6 +108,7 @@ label {
 #content .listContainer {
     display: grid;
     grid-template-columns: 150px 1fr 180px 50px 50px;
+    padding: 0px 0px 0px 10px;
 }
 
 #content .title,
@@ -106,16 +140,20 @@ label {
     grid-area: 3/1/4/2;
 }
 
-#dropdown .addlist {
+#dropdown button.addlist {
     position: absolute;
-    bottom: 276px;
+    bottom: 330px;
+    background-image: url(plus.svg);
+    border-radius: 0px;
+    padding: 20px;
+    background-size: 25px;
 }
 
 
 #dropdown #dropdowncontainer {
     position: absolute;
     bottom: 50px;
-    background-color: aquamarine;
+    background-color: #d4d4d8;
 }
 
 
@@ -145,15 +183,18 @@ input {
 
 
 
-label[for='title'] {
+label[for='title'],
+.sortByTitle {
     background-image: url(edit-3.svg);
 }
 
-label[for='description'] {
+label[for='description'],
+.sortByDescription {
     background-image: url(message-square.svg);
 }
 
-label[for='date'] {
+label[for='date'],
+.sortByDate {
     background-image: url(calendar.svg);
 }
 
@@ -163,6 +204,11 @@ label[for='priorityText'] {
 
 label[for='priorityBackground'] {
     background-image: url(format_color_fill_FILL0_wght300_GRAD200_opsz24\ \(1\).svg);
+}
+
+.todolist {
+    background-image: url(x-square.svg);
+    border-radius: 0px;
 }
 
 .form.hideform span {
@@ -176,4 +222,6 @@ label[for='priorityBackground'] {
 
 .form.hideform button {
     grid-area: 7/1/8/3;
+    justify-self: center;
+    border: var(--button-hover-color) 1px solid;
 }
