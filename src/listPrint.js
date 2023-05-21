@@ -46,7 +46,18 @@ export function createFinishedButton (index) {
 export function createDiv (item, index) {
   const div = document.createElement('div')
   div.classList.add(`no${index}`)
-  div.innerHTML = `${item.title}  ${item.description} ${item.date}`
+  div.classList.add('listContainer')
+  const titleDiv = document.createElement('div')
+  const descriptionDiv = document.createElement('div')
+  const dateDiv =document.createElement('div')
+  div.append(titleDiv,descriptionDiv,dateDiv)
+  titleDiv.innerHTML = `${item.title}`
+  descriptionDiv.innerHTML = `${item.description}`
+  dateDiv.innerHTML = `${item.date}`
+  titleDiv.classList.add('title')
+  titleDiv.title = `${item.title}`
+  descriptionDiv.classList.add('description')
+  dateDiv.classList.add('date')
   div.style.color = `${item.priorityT}`
   div.style.backgroundColor = `${item.priorityB}`
   return div

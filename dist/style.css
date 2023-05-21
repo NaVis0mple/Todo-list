@@ -49,11 +49,13 @@ label {
 
 #content button.delete {
     background-image: url(trash-2.svg);
+    border-radius: 0px;
 }
 
 
 #content button.finished {
     background-image: url(check-square.svg);
+    border-radius: 0px;
 }
 
 
@@ -63,17 +65,41 @@ label {
 
 }
 
-#content div:hover {
+#content .listContainer:hover {
     border: solid;
-    border-color: lavender;
+    border-color: rgb(195, 195, 195);
     border-width: 1px;
     border-radius: 5px;
 }
 
-#content div {
-    display: flex;
-    padding: 5px 3px 5px 10px;
+#content .listContainer {
+    display: grid;
+    grid-template-columns: 150px 1fr 180px 50px 50px;
 }
+
+#content .title,
+#content .description {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* #content .description:hover,
+#content .title:hover {
+    max-width: 200px;
+    white-space: normal;
+    overflow: hidden;
+} */
+
+
+#content .date {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
 
 #dropdown {
     position: relative;
