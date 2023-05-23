@@ -96,6 +96,11 @@ label {
     border-radius: 0px;
 }
 
+#content button.edit {
+    background-image: url(edit.svg);
+    border-radius: 0px;
+}
+
 
 
 #content .listContainer:hover {
@@ -107,7 +112,7 @@ label {
 
 #content .listContainer {
     display: grid;
-    grid-template-columns: 150px 1fr 180px 50px 50px;
+    grid-template-columns: 150px 1fr 180px 50px 50px 50px;
     padding: 0px 0px 0px 10px;
 }
 
