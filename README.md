@@ -24,3 +24,6 @@ export function setSortByDateAsc(value) {
     sortByDateAsc = value;
   }
   ```
+Because 
+
+That is how ES6 modules work - imports are constant([source](https://stackoverflow.com/questions/53617972/exported-variables-are-read-only)). Only the module that exports them can change them, which then propagates to all modules that import them.
