@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { undoList } from './add'
+import { undoList, getUndoList, setUndoList } from './add'
 import { callAddList, titleInput, descriptionInput, dateInput, priorityTextInput, priorityBackgroundInput } from './formEnter'
 // the toggle status need to use function to export
 export let sortByDateAsc = false
@@ -34,8 +34,9 @@ export function createDeleteButton (index) {
   button.classList.add(`no${index}`)
   button.classList.add('delete')
   button.addEventListener('click', () => {
-    undoList.splice(index, 1)
-    generateContent(undoList)
+    getUndoList().splice(index, 1)
+    setUndoList(getUndoList())
+    generateContent(getUndoList())
   })
   return button
 }
@@ -47,9 +48,10 @@ export function createFinishedButton (index) {
   button.classList.add(`no${index}`)
   button.classList.add('finished')
   button.addEventListener('click', () => {
-    const x = undoList.splice(index, 1)[0] || {}
+    const x = getUndoList().splice(index, 1)[0]
     finishedList.push(x)
-    generateContent(undoList)
+    setUndoList(getUndoList())
+    generateContent(getUndoList())
   })
   return button
 }
@@ -75,7 +77,7 @@ export function createEditButton (index) {
   return button
 }
 
-// create div'listContainer' ,and print each object from list 
+// create div'listContainer' ,and print each object from list
 export function createDiv (item, index) {
   const div = document.createElement('div')
   div.classList.add(`no${index}`)

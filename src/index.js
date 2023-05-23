@@ -1,6 +1,6 @@
-import { form } from './formEnter'
+import { form, submitbutton } from './formEnter'
 import _ from 'lodash'
-import { submitbutton, undoList, pushInList, PushEditedPiece } from './add'
+import { undoList, pushInList, PushEditedPiece, getUndoList, setUndoList } from './add'
 import { format, parseISO } from 'date-fns'
 import {
   content,
@@ -34,13 +34,13 @@ let pageStatusTodo = true
 submitbutton.addEventListener('click', () => {
   if (editStatus) {
     PushEditedPiece()
-    generateContent(undoList)
-    setShallowCopyList(undoList)
+    generateContent(getUndoList())
+    setShallowCopyList(getUndoList())
     setEditStatus(false)
   } else {
     pushInList()
-    generateContent(undoList)
-    setShallowCopyList(undoList)
+    generateContent(getUndoList())
+    setShallowCopyList(getUndoList())
   }
 })
 
@@ -48,7 +48,7 @@ submitbutton.addEventListener('click', () => {
 const sidebarTodoPage = document.querySelector('.todolist')
 sidebarTodoPage.addEventListener('click', () => {
   pageStatusTodo = true
-  generateContent(undoList)
+  generateContent(getUndoList())
 })
 
 // render  done page
@@ -58,12 +58,10 @@ sidebarDonePage.addEventListener('click', () => {
   generateFinishedContent(finishedList)
 })
 
-
-
 // render  -sortbydate  to 2pages
 const sortByDateButton = document.querySelector('.sortByDate')
 sortByDateButton.addEventListener('click', () => {
-  const sortByTodo = createNewListSortByDate(undoList)
+  const sortByTodo = createNewListSortByDate(getUndoList())
   setShallowCopyList(sortByTodo)
   const sortByDone = createNewListSortByDate(finishedList)
   if (pageStatusTodo) {
@@ -77,7 +75,7 @@ sortByDateButton.addEventListener('click', () => {
 // render  -sortbyTitle  to 2pages
 const sortByTitleButton = document.querySelector('.sortByTitle')
 sortByTitleButton.addEventListener('click', () => {
-  const sortByTodo = createNewListSortByTitle(undoList)
+  const sortByTodo = createNewListSortByTitle(getUndoList())
   setShallowCopyList(sortByTodo)
   const sortByDone = createNewListSortByTitle(finishedList)
   if (pageStatusTodo) {
@@ -91,7 +89,7 @@ sortByTitleButton.addEventListener('click', () => {
 // render  -sortbyDescription  to 2pages
 const sortByDescriptionButton = document.querySelector('.sortByDescription')
 sortByDescriptionButton.addEventListener('click', () => {
-  const sortByTodo = createNewListSortByDescription(undoList)
+  const sortByTodo = createNewListSortByDescription(getUndoList())
   setShallowCopyList(sortByTodo)
   const sortByDone = createNewListSortByDescription(finishedList)
   if (pageStatusTodo) {
