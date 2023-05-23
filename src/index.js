@@ -1,5 +1,6 @@
 import { form } from './formEnter'
-import { submitbutton, itemList, pushInList } from './add'
+import _ from 'lodash'
+import { submitbutton, itemList, pushInList, PushEditedPiece } from './add'
 import { format, parseISO } from 'date-fns'
 import {
   content,
@@ -7,6 +8,7 @@ import {
   createDiv,
   createDeleteButton,
   createFinishedButton,
+  createEditButton,
   generateContent,
   generateContentSortByDate,
   generateContentSortByTitle,
@@ -17,22 +19,35 @@ import {
   sortByDescriptionAsc,
   setSortByDateAsc,
   setSortByDescriptionAsc,
-  setSortByTitleAsc
+  setSortByTitleAsc,
+  setEditStatus,
+  editStatus,
+  shallowCopyList,
+  setShallowCopyList,
+  getShallowCopylist,
+  currentIndex
 } from './listPrint'
 
 let pageStatusTodo = true
 
 // when add a piece show todolist page
 submitbutton.addEventListener('click', () => {
-  pushInList()
-  generateContent(itemList)
+  if (editStatus) {
+    PushEditedPiece()
+    generateContent(itemList)
+    setShallowCopyList(itemList)
+    setEditStatus(false)
+  } else {
+    pushInList()
+    generateContent(itemList)
+    setShallowCopyList(itemList)
+  }
 })
 
 // render  todo page
 const sidebarTodoPage = document.querySelector('.todolist')
 sidebarTodoPage.addEventListener('click', () => {
   pageStatusTodo = true
-  setSortByDateAsc(true)
   generateContent(itemList)
 })
 
@@ -40,7 +55,6 @@ sidebarTodoPage.addEventListener('click', () => {
 const sidebarDonePage = document.querySelector('.done')
 sidebarDonePage.addEventListener('click', () => {
   pageStatusTodo = false
-  setSortByDateAsc(true)
   generateFinishedContent(finishedList)
 })
 
@@ -48,6 +62,7 @@ sidebarDonePage.addEventListener('click', () => {
 const sortByDateButton = document.querySelector('.sortByDate')
 sortByDateButton.addEventListener('click', () => {
   const sortByTodo = generateContentSortByDate(itemList)
+  setShallowCopyList(sortByTodo)
   const sortByDone = generateContentSortByDate(finishedList)
   if (pageStatusTodo) {
     generateContent(sortByTodo)
@@ -61,6 +76,7 @@ sortByDateButton.addEventListener('click', () => {
 const sortByTitleButton = document.querySelector('.sortByTitle')
 sortByTitleButton.addEventListener('click', () => {
   const sortByTodo = generateContentSortByTitle(itemList)
+  setShallowCopyList(sortByTodo)
   const sortByDone = generateContentSortByTitle(finishedList)
   if (pageStatusTodo) {
     generateContent(sortByTodo)
@@ -74,6 +90,7 @@ sortByTitleButton.addEventListener('click', () => {
 const sortByDescriptionButton = document.querySelector('.sortByDescription')
 sortByDescriptionButton.addEventListener('click', () => {
   const sortByTodo = generateContentSortByDescription(itemList)
+  setShallowCopyList(sortByTodo)
   const sortByDone = generateContentSortByDescription(finishedList)
   if (pageStatusTodo) {
     generateContent(sortByTodo)

@@ -77,6 +77,20 @@ addlistbutton.addEventListener('click', () => {
   document.getElementById('dropdowncontainer').appendChild(form)
 })
 
-export { form, submitbutton, titleInput, descriptionInput, dateInput, priorityTextInput, priorityBackgroundInput }
+const callAddList = () => {
+  document.getElementById('dropdowncontainer').appendChild(form)
+  form.classList.add('hideform')
+}
+
+export {
+  form,
+  submitbutton,
+  titleInput,
+  descriptionInput,
+  dateInput,
+  priorityTextInput,
+  priorityBackgroundInput,
+  callAddList
+}
 
 // for me : There is moudle https://www.ag-grid.com/javascript-data-grid/getting-started/ can give a try
