@@ -1,7 +1,7 @@
 import { form, submitbutton, titleInput, dateInput, descriptionInput, priorityBackgroundInput, priorityTextInput } from './formEnter'
 import _ from 'lodash'
 import { currentIndex, getShallowCopylist, setShallowCopyList, shallowCopyList } from './listPrint'
-const itemList = []
+const undoList = []
 function additem (t, d, da, pt, pb) {
   const title = { title: t }
   const description = { description: d }
@@ -19,9 +19,9 @@ function pushInList () {
   } else { titleInput.classList.remove('invalid') }
 
   const x = additem(titleInput.value, descriptionInput.value, dateInput.value, priorityTextInput.value, priorityBackgroundInput.value)
-  itemList.push(x)
+  undoList.push(x)
 
-  return itemList
+  return undoList
 }
 
 function PushEditedPiece () {
@@ -33,10 +33,10 @@ function PushEditedPiece () {
   const x = additem(titleInput.value, descriptionInput.value, dateInput.value, priorityTextInput.value, priorityBackgroundInput.value)
 
   const list = getShallowCopylist()
-  const editIndexinItemlist = _.findIndex(itemList, { title: list[currentIndex].title, description: list[currentIndex].description, date: list[currentIndex].date })
-  itemList.splice(editIndexinItemlist, 1, x)
-  setShallowCopyList(itemList)
-  return itemList
+  const editIndexinundoList = _.findIndex(undoList, { title: list[currentIndex].title, description: list[currentIndex].description, date: list[currentIndex].date })
+  undoList.splice(editIndexinundoList, 1, x)
+  setShallowCopyList(undoList)
+  return undoList
 }
 
-export { submitbutton, itemList, pushInList, PushEditedPiece }
+export { submitbutton, undoList, pushInList, PushEditedPiece }

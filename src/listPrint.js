@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { itemList } from './add'
+import { undoList } from './add'
 import { callAddList, titleInput, descriptionInput, dateInput, priorityTextInput, priorityBackgroundInput } from './formEnter'
 // the toggle status need to use function to export
 export let sortByDateAsc = false
@@ -27,35 +27,34 @@ export function setEditStatus (value) {
   editStatus = value
 }
 
-// create a button to delete the list piece
+// create a button to delete the undolist piece
 export const content = document.getElementById('content')
 export function createDeleteButton (index) {
   const button = document.createElement('button')
   button.classList.add(`no${index}`)
   button.classList.add('delete')
   button.addEventListener('click', () => {
-    itemList.splice(index, 1)
-    generateContent(itemList)
+    undoList.splice(index, 1)
+    generateContent(undoList)
   })
   return button
 }
 
-// create a finished button,if click move list piece to done page
+// create a finished button to move undolist piece to finishedlist
 export const finishedList = []
 export function createFinishedButton (index) {
   const button = document.createElement('button')
   button.classList.add(`no${index}`)
   button.classList.add('finished')
   button.addEventListener('click', () => {
-    const x = itemList.splice(index, 1)[0] || {}
+    const x = undoList.splice(index, 1)[0] || {}
     finishedList.push(x)
-    generateContent(itemList)
+    generateContent(undoList)
   })
   return button
 }
 
-// create edit button ,if click edit the list piece
-
+// create edit button to call addlist and show undolist piece in form input
 export function createEditButton (index) {
   const button = document.createElement('button')
   button.classList.add(`no${index}`)
@@ -76,7 +75,7 @@ export function createEditButton (index) {
   return button
 }
 
-// create a div to print value
+// create div'listContainer' ,and print each object from list 
 export function createDiv (item, index) {
   const div = document.createElement('div')
   div.classList.add(`no${index}`)
@@ -97,7 +96,7 @@ export function createDiv (item, index) {
   return div
 }
 
-// generate with deleted and finished button
+// generate with deleted and finished and edit button
 export function generateContent (list) {
   content.innerHTML = ''
   list.forEach((item, index) => {
@@ -121,8 +120,8 @@ export function generateFinishedContent (list) {
   })
 }
 
-// generate  -sortbydate
-export function generateContentSortByDate (list) {
+//  create a new list to sort the given list
+export function createNewListSortByDate (list) {
   const List = [...list].sort((a, b) => {
     const dateA = new Date(a.date)
     const dateB = new Date(b.date)
@@ -131,9 +130,7 @@ export function generateContentSortByDate (list) {
   return List
 }
 
-// generate -sortbytitle
-export function generateContentSortByTitle (list) {
-  content.innerHTML = ''
+export function createNewListSortByTitle (list) {
   const List = [...list].sort((a, b) => {
     const titleA = a.title
     const titleB = b.title
@@ -142,9 +139,7 @@ export function generateContentSortByTitle (list) {
   return List
 }
 
-// generate -sortbyDescription
-export function generateContentSortByDescription (list) {
-  content.innerHTML = ''
+export function createNewListSortByDescription (list) {
   const List = [...list].sort((a, b) => {
     const descriptionA = a.description
     const descriptionB = b.description
