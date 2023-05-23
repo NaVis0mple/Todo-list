@@ -11,8 +11,9 @@ export let sortByDateAsc = false
 # main.js
 import {sortByDateAsc} from module.js
 ````
-```
-index.js:39 Uncaught TypeError: Cannot set property shallowCopyList of #<Object> which has only a getter
+it will show someing like this
+```bash
+index.js:39 Uncaught TypeError: Cannot set property (variablename) of #<Object> which has only a getter
 ```
 Answer : export as function
 ```javascript
