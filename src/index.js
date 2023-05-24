@@ -5,6 +5,8 @@ import { format, parseISO } from 'date-fns'
 import {
   content,
   finishedList,
+  setFinishedList,
+  getFinishedList,
   createDiv,
   createDeleteButton,
   createFinishedButton,
@@ -27,8 +29,14 @@ import {
   getShallowCopylist,
   currentIndex
 } from './listPrint'
-
+import { setStorage,getStorage } from './localstorage'
 let pageStatusTodo = true
+
+window.addEventListener('DOMContentLoaded',()=>{
+  getStorage()
+  generateContent(getUndoList())
+  setShallowCopyList(getUndoList())
+})
 
 // when add a piece show todolist page
 submitbutton.addEventListener('click', () => {
@@ -37,10 +45,12 @@ submitbutton.addEventListener('click', () => {
     generateContent(getUndoList())
     setShallowCopyList(getUndoList())
     setEditStatus(false)
+    setStorage()
   } else {
     pushInList()
     generateContent(getUndoList())
     setShallowCopyList(getUndoList())
+    setStorage ()
   }
 })
 
@@ -55,7 +65,7 @@ sidebarTodoPage.addEventListener('click', () => {
 const sidebarDonePage = document.querySelector('.done')
 sidebarDonePage.addEventListener('click', () => {
   pageStatusTodo = false
-  generateFinishedContent(finishedList)
+  generateFinishedContent(getFinishedList())
 })
 
 // render  -sortbydate  to 2pages
@@ -63,7 +73,7 @@ const sortByDateButton = document.querySelector('.sortByDate')
 sortByDateButton.addEventListener('click', () => {
   const sortByTodo = createNewListSortByDate(getUndoList())
   setShallowCopyList(sortByTodo)
-  const sortByDone = createNewListSortByDate(finishedList)
+  const sortByDone = createNewListSortByDate(getFinishedList())
   if (pageStatusTodo) {
     generateContent(sortByTodo)
   } else {
@@ -77,7 +87,7 @@ const sortByTitleButton = document.querySelector('.sortByTitle')
 sortByTitleButton.addEventListener('click', () => {
   const sortByTodo = createNewListSortByTitle(getUndoList())
   setShallowCopyList(sortByTodo)
-  const sortByDone = createNewListSortByTitle(finishedList)
+  const sortByDone = createNewListSortByTitle(getFinishedList())
   if (pageStatusTodo) {
     generateContent(sortByTodo)
   } else {
@@ -91,7 +101,7 @@ const sortByDescriptionButton = document.querySelector('.sortByDescription')
 sortByDescriptionButton.addEventListener('click', () => {
   const sortByTodo = createNewListSortByDescription(getUndoList())
   setShallowCopyList(sortByTodo)
-  const sortByDone = createNewListSortByDescription(finishedList)
+  const sortByDone = createNewListSortByDescription(getFinishedList())
   if (pageStatusTodo) {
     generateContent(sortByTodo)
   } else {

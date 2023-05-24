@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { undoList, getUndoList, setUndoList } from './add'
 import { callAddList, titleInput, descriptionInput, dateInput, priorityTextInput, priorityBackgroundInput } from './formEnter'
+import { setStorage } from './localstorage'
 // the toggle status need to use function to export
 export let sortByDateAsc = false
 export let sortByTitleAsc = false
@@ -26,7 +27,13 @@ export function setSortByDescriptionAsc (value) {
 export function setEditStatus (value) {
   editStatus = value
 }
-
+export let finishedList = []
+export function setFinishedList (newList) {
+  finishedList = [...newList]
+}
+export function getFinishedList () {
+  return finishedList
+}
 // create a button to delete the undolist piece
 export const content = document.getElementById('content')
 export function createDeleteButton (index) {
@@ -37,21 +44,22 @@ export function createDeleteButton (index) {
     getUndoList().splice(index, 1)
     setUndoList(getUndoList())
     generateContent(getUndoList())
+    setStorage()
   })
   return button
 }
 
 // create a finished button to move undolist piece to finishedlist
-export const finishedList = []
 export function createFinishedButton (index) {
   const button = document.createElement('button')
   button.classList.add(`no${index}`)
   button.classList.add('finished')
   button.addEventListener('click', () => {
     const x = getUndoList().splice(index, 1)[0]
-    finishedList.push(x)
+    getFinishedList().push(x)
     setUndoList(getUndoList())
     generateContent(getUndoList())
+    setStorage()
   })
   return button
 }
@@ -72,6 +80,7 @@ export function createEditButton (index) {
     priorityTextInput.value = list[currentIndex].priorityT
     priorityBackgroundInput.value = list[currentIndex].priorityB
     setEditStatus(true)
+    setStorage()
   })
 
   return button
