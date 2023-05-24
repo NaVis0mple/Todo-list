@@ -18,12 +18,20 @@ function additem (t, d, da, pt, pb) {
   return Object.assign({}, title, description, date, priorityT, priorityB)
 }
 
-export function pushInList () {
+function validation () {
   if (titleInput.value === '') {
     titleInput.classList.add('invalid')
-    return
-  } else { titleInput.classList.remove('invalid') }
+    return false
+  } else { 
+    titleInput.classList.remove('invalid') 
+    return true
+  }
+}
 
+
+export function pushInList () {
+  if (!validation()) return
+  
   const x = additem(titleInput.value,
     descriptionInput.value,
     dateInput.value,
@@ -35,10 +43,7 @@ export function pushInList () {
 }
 
 export function PushEditedPiece () {
-  if (titleInput.value === '') {
-    titleInput.classList.add('invalid')
-    return
-  } else { titleInput.classList.remove('invalid') }
+  if (!validation()) return
 
   const x = additem(titleInput.value,
     descriptionInput.value,

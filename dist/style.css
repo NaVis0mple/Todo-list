@@ -40,6 +40,11 @@ button:hover {
     grid-template-rows: repeat(3, min-content);
 }
 
+.todolist {
+    background-image: url(x-square.svg);
+    border-radius: 0px;
+}
+
 #sort {
     position: absolute;
     top: 300px;
@@ -54,10 +59,6 @@ button:hover {
     content: 'sortby';
     color: var(--button-color);
 }
-
-
-
-
 
 #footer {
     grid-area: -2/-2/-1/-1;
@@ -74,21 +75,10 @@ button:hover {
     overflow-x: hidden;
 }
 
-
-label {
-    border: none;
-    background-repeat: no-repeat;
-    background-size: 15px;
-    background-position: center;
-    padding: 10px;
-    border-radius: 8px;
-}
-
 #content button.delete {
     background-image: url(trash-2.svg);
     border-radius: 0px;
 }
-
 
 #content button.finished,
 .done {
@@ -100,8 +90,6 @@ label {
     background-image: url(edit.svg);
     border-radius: 0px;
 }
-
-
 
 #content .listContainer:hover {
     border: solid;
@@ -123,23 +111,13 @@ label {
     text-overflow: ellipsis;
 }
 
-
-/* #content .description:hover,
-#content .title:hover {
-    max-width: 200px;
-    white-space: normal;
-    overflow: hidden;
-} */
-
-
 #content .date {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-
-
+/* dropdown and input  */
 #dropdown {
     position: relative;
     grid-area: 3/1/4/2;
@@ -147,7 +125,7 @@ label {
 
 #dropdown button.addlist {
     position: absolute;
-    bottom: 330px;
+    bottom: 340px;
     background-image: url(plus.svg);
     border-radius: 0px;
     padding: 20px;
@@ -172,6 +150,8 @@ input {
     border-style: solid;
 }
 
+
+
 .form.hideform {
     display: grid;
     grid-template-columns: 20px 1fr;
@@ -186,7 +166,14 @@ input {
     border-color: red;
 }
 
-
+label {
+    border: none;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position: center;
+    padding: 10px;
+    border-radius: 8px;
+}
 
 label[for='title'],
 .sortByTitle {
@@ -209,11 +196,6 @@ label[for='priorityText'] {
 
 label[for='priorityBackground'] {
     background-image: url(format_color_fill_FILL0_wght300_GRAD200_opsz24\ \(1\).svg);
-}
-
-.todolist {
-    background-image: url(x-square.svg);
-    border-radius: 0px;
 }
 
 .form.hideform span {
