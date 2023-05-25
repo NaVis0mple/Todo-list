@@ -31,25 +31,52 @@ import {
 } from './listPrint'
 import { setStorage,getStorage } from './localstorage'
 let pageStatusTodo = true
+let sortStatus = 'title'
+function setSortStatus (value){
+  sortStatus = value
+}
 
-window.addEventListener('DOMContentLoaded',()=>{
+window.addEventListener('load',()=>{
   getStorage()
-  generateContent(getUndoList())
-  setShallowCopyList(getUndoList())
+  generateContent(getShallowCopylist())
 })
 
 // when add a piece show todolist page
+function generateLogic (){
+  if (sortStatus === 'title'){
+    setSortByTitleAsc(true)
+    const sortByTitleList = createNewListSortByTitle(getUndoList())
+    generateContent(sortByTitleList)
+    setShallowCopyList(sortByTitleList)
+    setSortByTitleAsc(false)
+  }else if (sortStatus ==='date') {
+    setSortByDateAsc(true)
+    const sortByDateList = createNewListSortByDate(getUndoList())
+    generateContent(sortByDateList)
+    setShallowCopyList(sortByDateList)
+    setSortByDateAsc(false)
+  }else if (sortStatus==='description'){
+    setSortByDescriptionAsc(true)
+    const sortByDescriptionList = createNewListSortByDescription(getUndoList())
+    generateContent(sortByDescriptionList)
+    setShallowCopyList(sortByDescriptionList)
+    setSortByDescriptionAsc(false)
+  }else {
+    generateContent(getUndoList())
+    setShallowCopyList(getUndoList())
+  }
+}
+
+
 submitbutton.addEventListener('click', () => {
   if (editStatus) {
     PushEditedPiece()
-    generateContent(getUndoList())
-    setShallowCopyList(getUndoList())
+    generateLogic()
     setEditStatus(false)
     setStorage()
   } else {
     pushInList()
-    generateContent(getUndoList())
-    setShallowCopyList(getUndoList())
+    generateLogic ()
     setStorage ()
   }
 })
@@ -69,8 +96,11 @@ sidebarDonePage.addEventListener('click', () => {
 })
 
 // render  -sortbydate  to 2pages
+
 const sortByDateButton = document.querySelector('.sortByDate')
 sortByDateButton.addEventListener('click', () => {
+
+  setSortStatus('date')
   const sortByTodo = createNewListSortByDate(getUndoList())
   setShallowCopyList(sortByTodo)
   const sortByDone = createNewListSortByDate(getFinishedList())
@@ -85,6 +115,7 @@ sortByDateButton.addEventListener('click', () => {
 // render  -sortbyTitle  to 2pages
 const sortByTitleButton = document.querySelector('.sortByTitle')
 sortByTitleButton.addEventListener('click', () => {
+  setSortStatus('title')
   const sortByTodo = createNewListSortByTitle(getUndoList())
   setShallowCopyList(sortByTodo)
   const sortByDone = createNewListSortByTitle(getFinishedList())
@@ -99,6 +130,7 @@ sortByTitleButton.addEventListener('click', () => {
 // render  -sortbyDescription  to 2pages
 const sortByDescriptionButton = document.querySelector('.sortByDescription')
 sortByDescriptionButton.addEventListener('click', () => {
+  setSortStatus('description')
   const sortByTodo = createNewListSortByDescription(getUndoList())
   setShallowCopyList(sortByTodo)
   const sortByDone = createNewListSortByDescription(getFinishedList())

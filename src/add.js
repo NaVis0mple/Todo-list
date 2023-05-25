@@ -31,15 +31,14 @@ function validation () {
 
 export function pushInList () {
   if (!validation()) return
-  
+
   const x = additem(titleInput.value,
     descriptionInput.value,
     dateInput.value,
     priorityTextInput.value,
     priorityBackgroundInput.value)
   getUndoList().push(x)
-
-  return getUndoList()
+  setUndoList(getUndoList())
 }
 
 export function PushEditedPiece () {
@@ -60,6 +59,4 @@ export function PushEditedPiece () {
     })
   getUndoList().splice(editIndexinundoList, 1, x)
   setUndoList(getUndoList())
-  setShallowCopyList(getUndoList())
-  return getUndoList()
 }

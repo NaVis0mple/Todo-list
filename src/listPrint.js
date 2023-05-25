@@ -145,7 +145,7 @@ export function createNewListSortByTitle (list) {
   const List = [...list].sort((a, b) => {
     const titleA = a.title
     const titleB = b.title
-    return sortByTitleAsc ? titleB.localeCompare(titleA) : titleA.localeCompare(titleB)
+    return sortByTitleAsc ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA)
   })
   return List
 }
@@ -154,7 +154,7 @@ export function createNewListSortByDescription (list) {
   const List = [...list].sort((a, b) => {
     const descriptionA = a.description
     const descriptionB = b.description
-    return sortByDescriptionAsc ? descriptionB.localeCompare(descriptionA) : descriptionA.localeCompare(descriptionB)
+    return sortByDescriptionAsc ? descriptionA.localeCompare(descriptionB) : descriptionB.localeCompare(descriptionA)
   })
   return List
 }
