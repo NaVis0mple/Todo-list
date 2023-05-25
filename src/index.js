@@ -29,44 +29,44 @@ import {
   getShallowCopylist,
   currentIndex
 } from './listPrint'
-import { setStorage,getStorage } from './localstorage'
+import { setStorage, getStorage } from './localstorage'
 let pageStatusTodo = true
 let sortStatus = 'title'
-function setSortStatus (value){
+function setSortStatus (value) {
   sortStatus = value
 }
 
-window.addEventListener('load',()=>{
+window.addEventListener('load', () => {
+  content.innerHTML = ''
   getStorage()
-  generateContent(getShallowCopylist())
+  generateContent(getUndoList())
 })
 
 // when add a piece show todolist page
-function generateLogic (){
-  if (sortStatus === 'title'){
+function generateLogic () {
+  if (sortStatus === 'title') {
     setSortByTitleAsc(true)
     const sortByTitleList = createNewListSortByTitle(getUndoList())
     generateContent(sortByTitleList)
     setShallowCopyList(sortByTitleList)
     setSortByTitleAsc(false)
-  }else if (sortStatus ==='date') {
+  } else if (sortStatus === 'date') {
     setSortByDateAsc(true)
     const sortByDateList = createNewListSortByDate(getUndoList())
     generateContent(sortByDateList)
     setShallowCopyList(sortByDateList)
     setSortByDateAsc(false)
-  }else if (sortStatus==='description'){
+  } else if (sortStatus === 'description') {
     setSortByDescriptionAsc(true)
     const sortByDescriptionList = createNewListSortByDescription(getUndoList())
     generateContent(sortByDescriptionList)
     setShallowCopyList(sortByDescriptionList)
     setSortByDescriptionAsc(false)
-  }else {
+  } else {
     generateContent(getUndoList())
     setShallowCopyList(getUndoList())
   }
 }
-
 
 submitbutton.addEventListener('click', () => {
   if (editStatus) {
@@ -76,8 +76,8 @@ submitbutton.addEventListener('click', () => {
     setStorage()
   } else {
     pushInList()
-    generateLogic ()
-    setStorage ()
+    generateLogic()
+    setStorage()
   }
 })
 
@@ -85,7 +85,7 @@ submitbutton.addEventListener('click', () => {
 const sidebarTodoPage = document.querySelector('.todolist')
 sidebarTodoPage.addEventListener('click', () => {
   pageStatusTodo = true
-  generateContent(getUndoList())
+  generateLogic()
 })
 
 // render  done page
@@ -99,7 +99,6 @@ sidebarDonePage.addEventListener('click', () => {
 
 const sortByDateButton = document.querySelector('.sortByDate')
 sortByDateButton.addEventListener('click', () => {
-
   setSortStatus('date')
   const sortByTodo = createNewListSortByDate(getUndoList())
   setShallowCopyList(sortByTodo)

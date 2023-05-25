@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { undoList, getUndoList, setUndoList } from './add'
 import { callAddList, titleInput, descriptionInput, dateInput, priorityTextInput, priorityBackgroundInput } from './formEnter'
-import { setStorage } from './localstorage'
+import { setStorage, getStorage } from './localstorage'
 // the toggle status need to use function to export
 export let sortByDateAsc = false
 export let sortByTitleAsc = false
@@ -30,6 +30,7 @@ export function setEditStatus (value) {
 export let finishedList = []
 export function setFinishedList (newList) {
   finishedList = [...newList]
+  setStorage()
 }
 export function getFinishedList () {
   return finishedList
@@ -41,8 +42,18 @@ export function createDeleteButton (index) {
   button.classList.add(`no${index}`)
   button.classList.add('delete')
   button.addEventListener('click', () => {
-    getUndoList().splice(index, 1)
+    const list = getShallowCopylist()
+    currentIndex = index
+    const editIndexinundoList = _.findIndex(getUndoList(),
+      {
+        title: list[currentIndex].title,
+        description: list[currentIndex].description,
+        date: list[currentIndex].date
+      })
+    getUndoList().splice(editIndexinundoList, 1)
     setUndoList(getUndoList())
+    setShallowCopyList(getUndoList())
+    content.innerHTML = ''
     generateContent(getUndoList())
     setStorage()
   })
@@ -55,10 +66,20 @@ export function createFinishedButton (index) {
   button.classList.add(`no${index}`)
   button.classList.add('finished')
   button.addEventListener('click', () => {
-    const x = getUndoList().splice(index, 1)[0]
+    const list = getShallowCopylist()
+    currentIndex = index
+    const editIndexinundoList = _.findIndex(getUndoList(),
+      {
+        title: list[currentIndex].title,
+        description: list[currentIndex].description,
+        date: list[currentIndex].date
+      })
+    const x = getUndoList().splice(editIndexinundoList, 1)[0]
     getFinishedList().push(x)
+    setFinishedList(getFinishedList())
     setUndoList(getUndoList())
-    generateContent(getUndoList())
+    setShallowCopyList(getUndoList())
+    generateFinishedContent(getFinishedList())
     setStorage()
   })
   return button

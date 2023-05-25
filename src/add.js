@@ -22,12 +22,11 @@ function validation () {
   if (titleInput.value === '') {
     titleInput.classList.add('invalid')
     return false
-  } else { 
-    titleInput.classList.remove('invalid') 
+  } else {
+    titleInput.classList.remove('invalid')
     return true
   }
 }
-
 
 export function pushInList () {
   if (!validation()) return
